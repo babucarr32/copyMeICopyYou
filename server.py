@@ -6,14 +6,16 @@ def SimpleTCPServer():
     port = 55555
     s.bind((host, port))
     s.listen()
+    clients = []
 
     print("Listening...")
     while True:
         # accept 
         c, addr =  s.accept()
+        clients.append(c)
         print(f"Got connection from {addr}")
         # recieve message
         msg_recv = c.recv(1000000)
-        for client in addr:
-            c.send(f"hello world got connection from {addr}".encode('utf-8'))
+        for client in clients:
+            client.send(f"hello world got connection from {addr}".encode('utf-8'))
 SimpleTCPServer()
