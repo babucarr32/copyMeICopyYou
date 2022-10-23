@@ -1,4 +1,5 @@
 import socket
+import pyperclip
 
 def SimpleTCPServer():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -16,6 +17,8 @@ def SimpleTCPServer():
         print(f"Got connection from {addr}")
         # recieve message
         msg_recv = c.recv(1000000)
+        # copy message
+        pyperclip.copy(msg_recv.decode('utf-8'))
         for client in clients:
             client.send(f"hello world got connection from {addr}".encode('utf-8'))
 SimpleTCPServer()
