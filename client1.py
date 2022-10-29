@@ -22,13 +22,9 @@ def SimpleTCPServer():
                 pass
             else:
                 pyperPaste = pyperclip.paste() # paste
-                pyperCopy = pyperclip.copy(pyperPaste) # copy paste
-                s.send(str(pyperCopy).encode('utf-8')) # send copied msg
+                s.send(str(pyperPaste).encode('utf-8')) # send copied msg
                 newPyper = pyperPaste # redefine newPyper
                 break
-        print(msg_recv.decode("utf-8"))
+        print("breaked")
+        print(pyperPaste)
 SimpleTCPServer()
-Help
-decode
-decode
-redefine

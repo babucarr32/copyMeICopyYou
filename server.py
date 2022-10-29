@@ -21,12 +21,14 @@ def SimpleTCPServer():
             while True:
                 # recieve message
                 msg_recv = c.recv(1000000)
-                msg_recv  = msg_recv.decode('utf-8')
+                msg  = msg_recv.decode('utf-8')
+                
                 # copy message
                 # pyperclip.copy(msg_recv.decode('utf-8'))
                 # msg = input("Enter msg: ")
                 for client in clients:
-                    client.send(msg_recv.encode('utf-8'))
+                    client.send(msg.encode('utf-8'))
+                    print(msg_recv)
         else:
             pass
 SimpleTCPServer()
