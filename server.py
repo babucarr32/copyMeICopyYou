@@ -19,6 +19,7 @@ def SimpleTCPServer():
         msg_recv = c.recv(1000000)
         # copy message
         pyperclip.copy(msg_recv.decode('utf-8'))
+        msg = input("Enter msg: ")
         for client in clients:
-            client.send(f"hello world got connection from {addr}".encode('utf-8'))
+            client.send(msg.encode('utf-8'))
 SimpleTCPServer()

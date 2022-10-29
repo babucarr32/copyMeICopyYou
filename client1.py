@@ -16,12 +16,15 @@ def SimpleTCPServer():
     while True:
         # check for clipboard
         while True:
-            pyperPaste = pyperclip.paste()
+            pyperPaste = pyperclip.paste() # Determine cur and prev paste
 
-            if pyperPaste == newPyper:
+            if pyperPaste == newPyper: # if pastes are the same pass
                 pass
             else:
-                s.send(pyperPaste.encode('utf-8'))
+                pyperPaste = pyperclip.paste() # paste
+                pyperCopy = pyperclip.copy(pyperPaste) # copy paste
+                s.send(str(pyperCopy).encode('utf-8')) # send copied msg
+                newPyper = pyperPaste # redefine newPyper
                 break
         print(msg_recv.decode("utf-8"))
 SimpleTCPServer()
