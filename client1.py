@@ -28,3 +28,7 @@ def SimpleTCPServer():
                 break
         print(msg_recv.decode("utf-8"))
 SimpleTCPServer()
+Help
+decode
+decode
+redefine

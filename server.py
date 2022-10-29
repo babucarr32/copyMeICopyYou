@@ -1,3 +1,4 @@
+from ast import While
 import socket
 import pyperclip
 
@@ -15,11 +16,17 @@ def SimpleTCPServer():
         c, addr =  s.accept()
         clients.append(c)
         print(f"Got connection from {addr}")
-        # recieve message
-        msg_recv = c.recv(1000000)
-        # copy message
-        pyperclip.copy(msg_recv.decode('utf-8'))
-        msg = input("Enter msg: ")
-        for client in clients:
-            client.send(msg.encode('utf-8'))
+
+        if len(clients) == 2:
+            while True:
+                # recieve message
+                msg_recv = c.recv(1000000)
+                msg_recv  = msg_recv.decode('utf-8')
+                # copy message
+                # pyperclip.copy(msg_recv.decode('utf-8'))
+                # msg = input("Enter msg: ")
+                for client in clients:
+                    client.send(msg_recv.encode('utf-8'))
+        else:
+            pass
 SimpleTCPServer()
