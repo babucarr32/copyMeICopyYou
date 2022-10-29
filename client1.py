@@ -7,10 +7,21 @@ def SimpleTCPServer():
     port = 55555
     s.connect((host, port))
 
+    msg = "Hello World"
+    s.send(msg.encode('utf-8'))
+    msg_recv = msg_recv = s.recv(1000000)
+    pyperCopy = pyperclip.copy(msg_recv.decode('utf-8'))
+    newPyper = pyperCopy
+
     while True:
-        msg = "Hello World"
-        s.send(msg.encode('utf-8'))
-        msg_recv = msg_recv = s.recv(1000000)
-        pyperclip.copy(msg_recv.decode('utf-8'))
+        # check for clipboard
+        while True:
+            pyperPaste = pyperclip.paste()
+
+            if pyperPaste == newPyper:
+                pass
+            else:
+                s.send(pyperPaste.encode('utf-8'))
+                break
         print(msg_recv.decode("utf-8"))
 SimpleTCPServer()
