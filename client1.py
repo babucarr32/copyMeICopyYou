@@ -47,7 +47,7 @@ def SimpleTCPServer():
         for socks in read_sockets:
             if socks == s:
                 msg = socks.recv(2048)
-                pyperclip.copy(msg)
+                pyperclip.copy(msg.decode('utf-8'))
                 print (msg)
             else:
                 pyperPaste = pyperclip.paste() # Determine cur and prev paste
