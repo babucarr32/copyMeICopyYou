@@ -33,7 +33,7 @@ banner = style.CYAN + """
 ++                                                                               ++
 ++   INTRO: This tool allows you to share your clipboard between two computers.  ++
 ++          Copy from computer A and paste in computer B, and vice versa.        ++
-**          Source code:  https://github.com/babucarr32/copyMeICopyYou           ++
+++          Source code:  https://github.com/babucarr32/copyMeICopyYou           ++
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 """
