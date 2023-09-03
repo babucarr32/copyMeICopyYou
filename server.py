@@ -22,14 +22,14 @@ def handle_client(client, clients):
 
             # Decode the message received
             msg = msgRecv.decode('utf-8')
-            if isDebug == "Y" or "y" or "yes":
+            if isDebug.lower() == "y" or "yes":
                 print("Message Received is: ", msg)
 
             # Send the message to all clients connected
             if len(clients) > 1:
                 for otherClient in clients:
                     otherClient.send(msg.encode('utf-8'))
-                    print("Just sending...")
+                    print("------------------- New Message -------------------")
         except Exception as e:
             if isDebug == "Y" or "y" or "yes":
                 print(f"Error handling client: {str(e)}")
