@@ -15,74 +15,91 @@ def SimpleTCPServer():
     Use command Your/Path/copyMeICopyYou/client.py --help
     to display available commands.
 
-    Stop and restart to establish connection.
+    Stop and restart to establish connection            """)
+        time.sleep(30)
+    else:
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            host = sys.argv[1]
+            port = int(sys.argv[2])
+            s.connect((host, port))
+            print("""
+            Connection successful...
+            Setup the second computer to start sharing your clipboard.
             """)
+        except ConnectionRefusedError:
+            print("""
+            Failed to connect to server.
+            Possible solutions:
+                1. Make sure server is running.
+                2. Make sure you have python installed, if you are this as a script
+                    (.py) not as an executable.
+                2. Make sure you your ip and port (second arg and third arg) is set 
+                    to the ip displayed on the server.
+                    Example "🚀 Listening on 10.1.1.135:55555" means your command 
+                    should be as follows if you are running the file as a script (.py)
+                    python path/to/client/copyMeICopyYouClient.py 10.1.1.135 55555
+                    
+            """)
+            time.sleep(60*5)
+        msg = "Hello World"
+        s.send(msg.encode('utf-8'))
+        msgRecv = msgRecv = s.recv(1000000)
+        pyperclip.copy(msgRecv.decode('utf-8'))
+        pastedValue = pyperclip.paste()
+        cacheDict = {"key": pastedValue}
+        timeout = 2
 
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = sys.argv[1]
-    port = int(sys.argv[2])
-    s.connect((host, port))
-    print("""
-    Connection successful...
-    Setup the second computer to start sharing your clipboard.
-    """)
-
-    msg = "Hello World"
-    s.send(msg.encode('utf-8'))
-    msgRecv = msgRecv = s.recv(1000000)
-    pyperclip.copy(msgRecv.decode('utf-8'))
-    pastedValue = pyperclip.paste()
-    cacheDict = {"key": pastedValue}
-    timeout = 2
-
-    while True:
         while True:
-            pastedValue = pyperclip.paste()  # Determine cur and prev paste
+            while True:
+                pastedValue = pyperclip.paste()  # Determine cur and prev paste
 
-            # Check if previous copied value equals the current value
-            if pastedValue == cacheDict['key']:
-                # Set a timeout of 2 seconds for receiving data
-                s.settimeout(2)
+                # Check if previous copied value equals the current value
+                if pastedValue == cacheDict['key']:
+                    # Set a timeout of 2 seconds for receiving data
+                    s.settimeout(2)
 
-                while True:
-                    try:
-                        # Receive data from the server
-                        msgRecv = s.recv(1000000)
+                    while True:
+                        try:
+                            # Receive data from the server
+                            msgRecv = s.recv(1000000)
 
-                        if not msgRecv:
-                            # No data received, stop listening
+                            if not msgRecv:
+                                # No data received, stop listening
+                                if "--debug" in sys.argv:
+                                    print("No data received, stopped listening")
+                                break
+
+                            # Process the received message
                             if "--debug" in sys.argv:
-                                print("No data received, stopped listening")
+                                print("Received message:",
+                                      msgRecv.decode('utf-8'))
+                            pyperclip.copy(msgRecv.decode('utf-8'))
+
+                        except socket.timeout:
+                            # Timeout occurred, stop listening
+                            if "--debug" in sys.argv:
+                                print("Timeout occurred")
                             break
 
-                        # Process the received message
-                        if "--debug" in sys.argv:
-                            print("Received message:", msgRecv.decode('utf-8'))
-                        pyperclip.copy(msgRecv.decode('utf-8'))
-
-                    except socket.timeout:
-                        # Timeout occurred, stop listening
-                        if "--debug" in sys.argv:
-                            print("Timeout occurred")
-                        break
-
-                if "--debug" in sys.argv:
-                    print("Restarting loop...")
-                pass
-            else:
-                try:
                     if "--debug" in sys.argv:
-                        print("Copied new value...")
+                        print("Restarting loop...")
+                    pass
+                else:
+                    try:
+                        if "--debug" in sys.argv:
+                            print("Copied new value...")
 
-                    pastedValue = pyperclip.paste()  # paste
-                    cacheDict['key'] = pastedValue
-                    s.send(str(pastedValue).encode('utf-8'))  # send copied msg
-                    msgRecv = s.recv(1000000)
-                    pyperclip.copy(msgRecv.decode('utf-8'))
-                except Exception as e:
-                    continue
-    if "--debug" in sys.argv:
-        print("breaking from main loop...")
+                        pastedValue = pyperclip.paste()  # paste
+                        cacheDict['key'] = pastedValue
+                        s.send(str(pastedValue).encode(
+                            'utf-8'))  # send copied msg
+                        msgRecv = s.recv(1000000)
+                        pyperclip.copy(msgRecv.decode('utf-8'))
+                    except Exception as e:
+                        continue
+        if "--debug" in sys.argv:
+            print("breaking from main loop...")
 
 
 SimpleTCPServer()
