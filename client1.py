@@ -3,7 +3,6 @@ import pyperclip
 import sys
 import select
 import time
-from Banner import style
 
 
 def SimpleTCPServer():
@@ -17,16 +16,16 @@ def SimpleTCPServer():
             Setup the second computer to start sharing your clipboard.
             """)
     except Exception as e:
-        print(f"""{style.RED}
-    Failed to connect to server.{style.RESET}
-    Invalid Args...{style.CYAN}
+        print(f"""
+    Failed to connect to server.
+    Invalid Args...
         Usage:
             Your/Path/copyMeICopyYou/client.py <server ip> <port>
 
         Use command Your/Path/copyMeICopyYou/client.py --help
         to display available commands.
-        {style.RESET}{style.RED}
-    Troubleshoot:{style.CYAN}
+        
+    Troubleshoot:
         1. Make sure server is running.
         2. Make sure you have python installed, if you are this as a script
             (.py) not as an executable.
@@ -38,7 +37,7 @@ def SimpleTCPServer():
         5. Make sure your are connected to the same network as the server.
         6. Make sure your not behind a firewall.
 
-        Stop and restart to establish connection with Ctrl + c {style.RESET}
+        Stop and restart to establish connection with Ctrl + c 
             """)
         time.sleep(60*5)
     msg = "Hello World"
