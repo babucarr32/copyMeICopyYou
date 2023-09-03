@@ -24,9 +24,13 @@ def handle_client(client, clients):
                 print("Message Received is: ", msg)
 
             # Send the message to all clients connected
-            for otherClient in clients:
-                if otherClient != client:
+            if len(clients) > 1:
+                for otherClient in clients:
+                    # print(otherClient, clients)
                     otherClient.send(msg.encode('utf-8'))
+                    # if otherClient != client:
+                    # else:
+                    print("Just sending...")
         except Exception as e:
             if "--debug" in sys.argv:
                 print(f"Error handling client: {str(e)}")
