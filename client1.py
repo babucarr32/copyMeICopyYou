@@ -6,7 +6,7 @@ import time
 
 
 def SimpleTCPServer():
-    if not len(sys.argv) >= 2:
+    if not len(sys.argv) >= 3:
         print("""
     Invalid Args...
     Usage:
@@ -18,8 +18,8 @@ def SimpleTCPServer():
         quit()
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = sys.argv[0]
-    port = sys.argv[1]
+    host = sys.argv[1]
+    port = int(sys.argv[2])
     s.connect((host, port))
 
     msg = "Hello World"
