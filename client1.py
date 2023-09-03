@@ -4,6 +4,7 @@ import sys
 import select
 import time
 
+
 def SimpleTCPServer():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = "10.1.1.135"
@@ -12,56 +13,62 @@ def SimpleTCPServer():
 
     msg = "Hello World"
     s.send(msg.encode('utf-8'))
-    msg_recv = msg_recv = s.recv(1000000)
-    pyperCopy = pyperclip.copy(msg_recv.decode('utf-8'))
-    newPyper = pyperclip.paste()
-    pasteDict = {"key": newPyper}
+    msgRecv = msgRecv = s.recv(1000000)
+    pyperclip.copy(msgRecv.decode('utf-8'))
+    pastedValue = pyperclip.paste()
+    cacheDict = {"key": pastedValue}
     timeout = 2
 
     while True:
-        # check for clipboard
-        print("Checking...")
         while True:
-            pyperPaste = pyperclip.paste() # Determine cur and prev paste
+            pastedValue = pyperclip.paste()  # Determine cur and prev paste
 
-            if pyperPaste == pasteDict['key']: # if pastes are the same pass
-                s.settimeout(2)  # Set a timeout of 2 seconds for receiving data
+            # Check if previous copied value equals the current value
+            if pastedValue == cacheDict['key']:
+                # Set a timeout of 2 seconds for receiving data
+                s.settimeout(2)
 
                 while True:
                     try:
                         # Receive data from the server
-                        msg_recv = s.recv(1000000)
+                        msgRecv = s.recv(1000000)
 
-                        if not msg_recv:
+                        if not msgRecv:
                             # No data received, stop listening
-                            print("No data received, stop listening")
+                            if "--debug" in sys.argv:
+                                print("No data received, stopped listening")
                             break
 
                         # Process the received message
-                        print("Received message:", msg_recv.decode('utf-8'))
-                        pyperclip.copy(msg_recv.decode('utf-8'))
+                        if "--debug" in sys.argv:
+                            print("Received message:", msgRecv.decode('utf-8'))
+                        pyperclip.copy(msgRecv.decode('utf-8'))
 
                     except socket.timeout:
                         # Timeout occurred, stop listening
-                        print("Timeout occured")
+                        if "--debug" in sys.argv:
+                            print("Timeout occurred")
                         break
 
-
-                print("passing.....", pasteDict)
+                if "--debug" in sys.argv:
+                    print("Restarting loop...")
                 pass
             else:
                 try:
-                    print("Different.....")
-                    pyperPaste = pyperclip.paste() # paste
-                    pasteDict['key'] = pyperPaste
-                    s.send(str(pyperPaste).encode('utf-8')) # send copied msg
-                    msg_recv = s.recv(1000000)
-                    pyperclip.copy(msg_recv.decode('utf-8'))
-                    pyperPaste = pyperclip.paste() # paste
-                    newPyper = pyperPaste # redefine newPyper
+                    if "--debug" in sys.argv:
+                        print("Copied new value...")
+
+                    pastedValue = pyperclip.paste()  # paste
+                    cacheDict['key'] = pastedValue
+                    s.send(str(pastedValue).encode('utf-8'))  # send copied msg
+                    msgRecv = s.recv(1000000)
+                    pyperclip.copy(msgRecv.decode('utf-8'))
+                    pastedValue = pyperclip.paste()  # paste
+                    pastedValue = pastedValue  # redefine pastedValue
                 except Exception as e:
                     continue
-        print("breaked")
-        print(pyperPaste)
-    
+    if "--debug" in sys.argv:
+        print("breaking from main loop...")
+
+
 SimpleTCPServer()
