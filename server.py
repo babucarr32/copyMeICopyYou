@@ -53,9 +53,10 @@ def SimpleTCPServer():
     print(Banner.style.RESET)
 
     print(
-        f"Connect to server using the ip: {Banner.style.CYAN}{ ipAddress}:{port}")
-    print(Banner.style.RESET)
-    print("Server is listening...")
+        f"""
+    🖥  Server has started.
+    🚀 Listening on {Banner.style.CYAN}{ ipAddress}:{port}...
+        """)
     print(Banner.style.GREEN)
 
     while True:

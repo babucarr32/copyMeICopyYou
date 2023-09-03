@@ -14,13 +14,18 @@ def SimpleTCPServer():
 
     Use command Your/Path/copyMeICopyYou/client.py --help
     to display available commands.
+
+    Stop and restart to establish connection.
             """)
-        quit()
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = sys.argv[1]
     port = int(sys.argv[2])
     s.connect((host, port))
+    print("""
+    Connection successful...
+    Setup the second computer to start sharing your clipboard.
+    """)
 
     msg = "Hello World"
     s.send(msg.encode('utf-8'))
