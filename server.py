@@ -8,7 +8,7 @@ print(Banner.banner)
 
 ipAddress = getIp.get_network_ip()
 isDebug = input("Do you want to debug output Y/n? ")
-clientCount = int(input("How many clients do you want connect? "))
+port = int(input("What port do you want to listen on? "))
 
 
 def handle_client(client, clients):
@@ -28,10 +28,7 @@ def handle_client(client, clients):
             # Send the message to all clients connected
             if len(clients) > 1:
                 for otherClient in clients:
-                    # print(otherClient, clients)
                     otherClient.send(msg.encode('utf-8'))
-                    # if otherClient != client:
-                    # else:
                     print("Just sending...")
         except Exception as e:
             if isDebug == "Y" or "y" or "yes":
@@ -46,7 +43,6 @@ def handle_client(client, clients):
 def SimpleTCPServer():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = ""
-    port = 55555
     s.bind((host, port))
     s.listen()
     clients = []
@@ -63,11 +59,7 @@ def SimpleTCPServer():
 
     while True:
         c, addr = s.accept()
-        if clientCount:
-            if not len(clients) == clientCount:
-                clients.append(c)
-        else:
-            clients.append(c)
+        clients.append(c)
 
         if isDebug == "Y" or "y" or "yes":
             print(f"Got connection from {addr}")
