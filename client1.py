@@ -6,9 +6,20 @@ import time
 
 
 def SimpleTCPServer():
+    if not len(sys.argv) >= 2:
+        print("""
+    Invalid Args...
+    Usage:
+        Your/Path/copyMeICopyYou/client.py <server ip> <port>
+
+    Use command Your/Path/copyMeICopyYou/client.py --help
+    to display available commands.
+            """)
+        quit()
+
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = "10.1.1.135"
-    port = 55555
+    host = sys.argv[0]
+    port = sys.argv[1]
     s.connect((host, port))
 
     msg = "Hello World"
