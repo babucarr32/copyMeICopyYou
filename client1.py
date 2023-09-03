@@ -74,8 +74,6 @@ def SimpleTCPServer():
                     s.send(str(pastedValue).encode('utf-8'))  # send copied msg
                     msgRecv = s.recv(1000000)
                     pyperclip.copy(msgRecv.decode('utf-8'))
-                    pastedValue = pyperclip.paste()  # paste
-                    pastedValue = pastedValue  # redefine pastedValue
                 except Exception as e:
                     continue
     if "--debug" in sys.argv:
