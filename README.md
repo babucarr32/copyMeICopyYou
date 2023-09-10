@@ -23,6 +23,6 @@ For Windows users running the executable server and granting it network permissi
 
 ## Contribute to the Project:
 
-We welcome contributions to this open-source project. Your input and enhancements are highly appreciated!
+I welcome contributions to this open-source project. Your input and enhancements are highly appreciated!
 
 ## Enjoy Seamless Clipboard Sharing! 😊
