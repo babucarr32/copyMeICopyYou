@@ -1,8 +1,6 @@
 ## Introduction:
 
-**CopyMeICopyYou** is a terminal-based tool designed to facilitate clipboard sharing between two computers. With this utility, you can
- effortlessly copy text from one computer and paste it on another, and vice versa. Whether you're averse to complex scripts and setups 
-or a tech-savvy enthusiast, we've got you covered.
+**CopyMeICopyYou** is a terminal-based tool designed to facilitate clipboard sharing between two computers. With this utility, you can effortlessly copy text from one computer and paste it on another, and vice versa. Whether you're averse to complex scripts and setups or a tech-savvy enthusiast, we've got you covered.
 
 This repository offers different flavors of the tool to enhance your clipboard-sharing experience:
 
@@ -10,15 +8,12 @@ This repository offers different flavors of the tool to enhance your clipboard-s
 2. The repo contains a folder called **windows**, which includes the Windows executable.
 3. At the root of the repo, you can access the source code used to build this versatile clipboard-sharing tool.
 
-## How to use:
-One of the devices should serve as a server. But all the devices(including the server) that wish to share the clipboard should run the client. 
-
 ## Requirements:
 
 To ensure smooth operation of this terminal-based tool, make sure you have the following prerequisites in place:
 
 1. **Python**: If you intend to run the provided scripts (not executables).
-2. **Xclip** (Linux Only): To use this tool on Linux, you must install Xclip. You can do this by running the following command: `sudo apt-get install xclip`
+2. **Xclip** (Linux Only): To use this tool on Linux, install Xclip. You can do this by running the following command: `sudo apt-get install xclip`.
 3. **Pyperclip**: Install Pyperclip using the command `pip install pyperclip`.
 4. **Pyfiglet**: Ensure Pyfiglet is installed by running `pip install pyfiglet`.
 
@@ -28,6 +23,6 @@ For Windows users running the executable server and granting it network permissi
 
 ## Contribute to the Project:
 
-I welcome contributions to this project.
+I welcome contributions to this open-source project. Your input and enhancements are highly appreciated!
 
 ## Enjoy Seamless Clipboard Sharing! 😊
